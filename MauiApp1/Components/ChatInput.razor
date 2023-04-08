@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@inject IJSRuntime JS
+
+<div class="input-group">
+    <input @ref="textInput" @bind="UserInput" @onkeyup="HandleKeyUp" class="form-control" placeholder="Type your message" />
+    <button @onclick="SendMessage" class="btn btn-primary">Send</button>
+</div>
+
+@code {
+    [Parameter] public EventCallback<string> OnSendMessage { get; set; }
+    private string UserInput { get; set; }
+    private ElementReference textInput;
+
+    private async Task HandleKeyUp(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            await SendMessage();
+        }
+    }
+
+    private async Task SendMessage()
+    {
+        if (!string.IsNullOrWhiteSpace(UserInput))
+        {
+            await OnSendMessage.InvokeAsync(UserInput);
+            UserInput = string.Empty;
+            await textInput.FocusAsync();
+        }
+    }
+}

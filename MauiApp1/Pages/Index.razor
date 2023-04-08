@@ -1,0 +1,55 @@
+﻿@page "/"
+
+@using MauiApp1.Services
+@using MauiApp1.Models
+@using MauiApp1.Components
+@inject ChatbotService ChatbotService
+@inject IJSRuntime JS
+
+<div class="main-content">
+    <h1>Hello, world!</h1>
+
+    Welcome to your new app.
+
+    <SurveyPrompt Title="How is Blazor working for you?" />
+
+    <div class="messages">
+        @foreach (var message in messages)
+        {
+            <div class="message @(message.Sender == "You" ? "user-message" : "bot-message")">
+                <div class="sender">@message.Sender</div>
+                <div>@message.Text</div>
+                <div class="timestamp">@message.Timestamp.ToString("g")</div>
+            </div>
+        }
+    </div>
+</div>
+<div class="chat-input">
+    <ChatInput OnSendMessage="AddMessage" />
+</div>
+
+@code {
+    private List<Message> messages = new List<Message>();
+
+    private async Task AddMessage(string text)
+    {
+        messages.Add(new Message
+        {
+            Sender = "You",
+            Text = text,
+            Timestamp = DateTime.Now
+        });
+
+        var chatbotResponse = await ChatbotService.GetResponseAsync(text);
+
+        messages.Add(new Message
+        {
+            Sender = "Chatbot",
+            Text = chatbotResponse,
+            Timestamp = DateTime.Now
+        });
+
+        // Scroll to the latest message (optional)
+        await JS.InvokeVoidAsync("window.scrollTo", 0, 999999);
+    }
+}
