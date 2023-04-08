@@ -6,6 +6,16 @@ html, body {
     color: #d4af37; /* Changed to a dull yellow color */
 }
 
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8)), url('/images/star_field.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    color: #eee; /* You can adjust the text color if needed */
+}
+
+
 h1:focus {
     outline: none;
 }
