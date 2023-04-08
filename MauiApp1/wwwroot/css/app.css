@@ -2,6 +2,8 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #2c2c2c; /* Changed */
+    color: #d4af37; /* Changed to a dull yellow color */
 }
 
 h1:focus {
@@ -73,7 +75,7 @@ a, .btn-link {
         position: sticky;
         top: 0;
         height: env(safe-area-inset-top);
-        background-color: #f7f7f7;
+        background-color: #2c2c2c; /* Changed */
         width: 100%;
         z-index: 1;
     }
@@ -81,4 +83,26 @@ a, .btn-link {
     .flex-column, .navbar-brand {
         padding-left: env(safe-area-inset-left);
     }
+}
+
+.dark-table {
+    color: #d4af37;
+}
+
+.dark-table thead th {
+    background-color: #3a3a3a;
+    border-color: #4a4a4a;
+}
+.dark-table tbody tr {
+    background-color: #2c2c2c;
+    color: #d4af37; /* Add this line to set the text color */
+}
+
+.dark-table tbody tr:nth-of-type(odd) {
+    background-color: #3a3a3a;
+    color: #d4af37; /* Add this line to set the text color */
+}
+
+.page .top-row {
+    background-color: #3a3a3a !important; /* Change this to your desired color */
 }
